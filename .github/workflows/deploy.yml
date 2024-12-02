@@ -9,30 +9,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # 1. Checkout репозиторий
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # 2. Установите Node.js (если используется)
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 16
-
-    # 3. Установка зависимостей (если проект имеет package.json)
-    - name: Install dependencies
-      run: npm install
-
-    # 4. Сборка приложения (если требуется)
-    - name: Build project
-      run: npm run build
-
-    # 5. Копирование релизной версии
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./ # укажите директорию с итоговыми файлами
+        publish_dir: ./ # Укажите папку, где находятся статические файлы
         destination_dir: v${{ github.event.release.tag_name }}
-        keep_files: true # сохраняет прошлые версии
+        keep_files: true
+
 
